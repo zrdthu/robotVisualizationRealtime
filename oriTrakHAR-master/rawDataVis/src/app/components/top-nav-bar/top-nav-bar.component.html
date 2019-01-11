@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <a class="navbar-brand" href="#">Ubiquitous Acticity Recognition </a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
+            {{status.selectedDate || "Select Data"}} <span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li *ngFor="let option of objToArray(status.availableDates)" role="menuitem" (click)="selectDate(option)">
+              <a class="dropdown-item" href="dropdown-item" href="#">{{option}}</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+<!--       <li *ngIf="status.timeMax > status.timeMin" class="nav-item active">
+        <a class="nav-link">Time Range: {{status.timeMin.toString().slice(15, 25)}} - {{status.timeMax.toString().slice(15, 25)}}</a>
+      </li> -->
+      <li *ngIf="status.timeMax > status.timeMin" class="nav-item active">
+        <a class="nav-link"> Window of Interest: <strong>{{status.animationStartTime.toString().slice(15, 25)}} - {{status.animationEndTime.toString().slice(15, 25)}}</strong> </a>
+      </li>
+      <li *ngIf="status.timeMax > status.timeMin" class="nav-item active">
+        <a class="nav-link">  Selected Time: {{status.selectedTimeStart.toString().slice(15, 25)}} - {{status.selectedTimeEnd.toString().slice(15, 25)}}</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" *ngIf="status.timeMax > status.timeMin">
+      <li  *ngIf="status.windowFixed" class="nav-item d-none d-xl-block">
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
+            Slow Down Factor: {{status.windowPlaySlowDownFactor}}x<span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li *ngFor="let option of status.availableWindowPlaySlowDownFactors" role="menuitem" (click)="selectSlowDown(option)">
+              <a class="dropdown-item" href="dropdown-item" href="#">Slow Down Factor: {{option}}x</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li *ngIf="status.windowFixed" class="nav-item d-none d-xl-block">
+        <button *ngIf="!status.winPlaying" type="button" class="btn btn-primary" (click)="playWin()">Win. of Int. Play</button>
+        <button *ngIf="status.winPlaying" type="button" class="btn btn-primary" (click)="stopWin()" >Win. of Int. Stop</button>
+      </li>&nbsp;&nbsp;
+      <li class="nav-item d-none d-xl-block">
+        <button *ngIf="status.windowFixed" type="button" class="btn btn-primary" (click)="toggleWindowFixed()" [disabled]="status.winPlaying">Fix Win. of Int.</button>
+        <button *ngIf="!status.windowFixed" type="button" class="btn btn-outline-primary" (click)="toggleWindowFixed()">Fix Win. of Int.</button>
+      </li>
+    </ul>
+</nav>

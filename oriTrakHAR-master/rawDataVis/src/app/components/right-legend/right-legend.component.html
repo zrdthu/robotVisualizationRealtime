@@ -1,0 +1,27 @@
+<div *ngIf="status.selectedDate" >
+  <div align="center">
+    <h5>Clustering</h5>
+  </div>
+    <div class="btn-group col-md-6" dropdown>
+      <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+        {{status.selectedCluster || "Select Cluster"}}<span class="caret"></span>
+      </button>
+
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li *ngFor="let option of objToArray(status.availableClusters)" role="menuitem" (click)="selectCluster(option)">
+          <span class="dropdown-item" href="dropdown-item">{{option}} Cluster</span>
+        </li>
+      </ul>
+    </div>
+    <br><br>
+    <div style="height: 700px; overflow: scroll;">
+      <form>
+        <div *ngFor="let cluster_id of getKeys(status.clustersOnOff)">
+          <div [ngStyle]="getColor(cluster_id)" style="margin:5px 3px; text-align: center;" (click)="toggleClusterOnoff(cluster_id)">
+            <h5> Cluster {{cluster_id}} </h5>
+          </div>
+          <br>
+        </div>
+      </form>
+    </div>
+</div>

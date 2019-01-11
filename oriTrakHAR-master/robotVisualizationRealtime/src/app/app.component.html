@@ -1,0 +1,28 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  test
+<!--   <table style="border:'1'">
+    <tr>
+      <td>
+        <app-nvd3 [options]="fftGraphSettings" [data]="data_model['1']"></app-nvd3>
+      </td>
+      <td>
+        <app-nvd3 [options]="fftGraphSettings" [data]="data_model['2']"></app-nvd3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <app-nvd3 [options]="fftGraphSettings" [data]="data_model['3']"></app-nvd3>
+      </td>
+      <td>
+        <app-nvd3 [options]="fftGraphSettings" [data]="data_model['4']"></app-nvd3>
+      </td>
+    </tr>
+  </table> -->
+</div>
+<div #veq1 ></div>
+<div>
+  <app-stick-figure [angleData]="status" [name]="'veq1'" [container]="veq1" [axisNames]="axisNames"></app-stick-figure>
+  <!-- <app-quaternion-euler-visualization  [angleData]="status.torsoAngle" [name]="'veq1'" [container]="veq1" [axisNames]="absoluteAxisNames"></app-quaternion-euler-visualization> -->
+</div>
+

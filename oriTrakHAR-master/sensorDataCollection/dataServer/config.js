@@ -1,0 +1,32 @@
+module.exports = {
+  UPDATE_INTERVAL: 600,    // sqlite database begin transaction - commit interval
+  SOCKET_IO_PORT: 8088,
+  EULER_ORDER: 'YZX',
+  ANSWER_INTERVAL: 5,
+  SENSOR_DICT: {
+    '11212505': 'torso',
+    '3080144': 'leftArm',
+    '4257178': 'rightArm',
+    '3074338': 'head'
+  },
+  PORT: 9000,
+  HEALTH_PORT: 6000,
+  POLL_INTERVAL_MIN: 45,
+  POLL_INTERVAL_MAX: 200,
+  TINY_SYNC_NUM_POINTS: 8,
+  DEFAULT_TORSO_OFFSET: {
+    w: -0.01483116439305834,
+    x: 0.6592238955120293,
+    y: 0.747234344297174,
+    z: 0.08257845853418903
+  },
+  DEFAULT_HEAD_OFFSET: {
+    w: -0.10168719246516468,
+    x: 0.6256875209846358,
+    y: 0.772480857046293,
+    z: 0.038392103277664215
+  },
+  FREE_FALL_ACC_THRESHOLD: 1.2,
+  STATIC_ACC_MIN: 9.7,
+  STATIC_ACC_MAX: 9.9
+}

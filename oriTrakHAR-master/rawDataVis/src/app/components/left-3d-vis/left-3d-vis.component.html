@@ -1,0 +1,66 @@
+<div  *ngIf="status.selectedDate" align="center" style="margin:0px 2px;">
+  <h5>Motion Reconstruction Animation</h5>
+  <div class="row" align="center" style="margin:0px 2px;">
+        <!-- TODO: add pause functionality! distinguish between pause and stop! -->
+
+        <div class="btn-group col-md-4" dropdown *ngIf="!status.playing" align="center">
+
+          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle" align="center">
+            {{selectedRatio}}x speed <span class="caret"></span>
+          </button>
+
+          <ul *dropdownMenu class="dropdown-menu" role="menu" align="center">
+            <li *ngFor="let option of availableRatio" role="menuitem" (click)="selectRatio(option)">
+              <span class="dropdown-item" href="dropdown-item">{{option}}x speed</span>
+            </li>
+          </ul>
+
+        </div>
+
+        <div *ngIf="status.playing" class="col-md-4" align="center">
+          <button type="button" class="btn btn-primary" (click)="stop()">Stop</button>
+        </div>
+
+        <div class="col-md-4" align="center">
+          <button *ngIf="!status.playing" type="button" class="btn btn-primary" (click)="play()">Play</button>
+          <button *ngIf="status.playing" type="button" class="btn btn-primary" (click)="pause()">Pause</button>
+        </div>
+
+        <div *ngIf="status.playing" class="col-md-4" align="center">
+          <h6>time: {{getPlayingTime() || 'loading...'}}</h6>
+        </div>
+
+  </div>
+  <div>
+    <div #veq1></div>
+    <app-stick-figure [angleData]="status" [name]="'veq1'" [container]="veq1" [axisNames]="axisNames" [ratio]="0.38"></app-stick-figure>
+  </div>
+  <h5>Orientation Distribution</h5>
+  <h6>over {{status.animationStartTime.toString().slice(15, 25)}} - {{status.animationEndTime.toString().slice(15, 25)}}</h6>
+
+  <div class="row" align="center" style="margin:0px 2px;">
+    <div class="btn-group col-md-6" dropdown align="center">
+      <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle" align="center">
+        {{status.histMenuDisplayName[status.selectedHistSource] || "Select source"}} <span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu" align="center">
+        <li *ngFor="let option of status.availableHistSources" role="menuitem" (click)="selectHistSource(option)">
+          <span class="dropdown-item" href="dropdown-item">{{status.histMenuDisplayName[option]}}</span>
+        </li>
+      </ul>
+    </div>
+<!--     <div class="col-md-6" align="center">
+      <button type="button" class="btn btn-primary" (click)="updateHist()">update</button>
+    </div> -->
+  </div>
+
+
+  <div>
+    <div #veq2></div>
+    <app-shpere-hist [name]="'veq2'" [container]="veq2" [axisNames]="getAxisNameForHist()" [ratio]="0.38"></app-shpere-hist>
+  </div>
+
+
+</div>
+
+

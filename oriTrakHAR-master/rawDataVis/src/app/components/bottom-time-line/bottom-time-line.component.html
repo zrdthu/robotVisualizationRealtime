@@ -1,0 +1,5 @@
+
+<div *ngIf="status.timeMax > status.timeMin" style="margin:0px 40px;">
+	<!-- <nouislider [connect]="true" [min]="getRangeMin()" [max]="getRangeMax()"  [step]="1" [(ngModel)]="timeRange" (ngModelChange)="onChange($event)"></nouislider> -->
+	<nouislider #nouislider [config] = "config" [(ngModel)]="status.start_selected_end" (ngModelChange)="onChange($event)" [min]="minTime" [max]="maxTime" style="margin-bottom: 5rem; margin-top: 3rem;"></nouislider>
+</div>

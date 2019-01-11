@@ -1,0 +1,19 @@
+{
+  "name": "oritrak_har_dataserver",
+  "version": "1.0.0",
+  "description": "server side node.js that runs on rpi3 for the oritrakHAR project",
+  "main": "dataServer.js",
+  "scripts": {
+    "test": "node ./dataServer.js"
+  },
+  "author": "Yuhui Zhao",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^4.1.0",
+    "bluebird": "^3.5.1",
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4",
+    "sqlite": "^2.9.1",
+    "three.js-node": "^0.72.1"
+  }
+}
