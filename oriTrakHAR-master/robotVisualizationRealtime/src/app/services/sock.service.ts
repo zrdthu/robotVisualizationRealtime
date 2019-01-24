@@ -4,16 +4,19 @@ import { DataModelService } from './data-model.service';
 // import { AngleData } from '../prototypes';
 import * as data from './righthanddata.json';
 
+
 @Injectable()
 export class SockService {
 
   constructor( private dataModel: DataModelService) {
 
-    newDataHandle('torso');
-    console.log()
-
+   newDataHandle('torso');
+   console.log(data);
+// loops through 
 
     // need to get the data and iterate through new data handle
+    /// go through the loop 
+
 
 
     function newDataHandle(msg) {
