@@ -122,6 +122,7 @@ export class StickFigureComponent implements OnInit {
 
 
   animate(angleData) {
+  //  console.log(angleData);
     // this.vectorQuaternion.x = angleData.quaternion.x;
     // this.vectorQuaternion.w = angleData.quaternion.w;
     // this.vectorQuaternion.y = angleData.quaternion.y;
