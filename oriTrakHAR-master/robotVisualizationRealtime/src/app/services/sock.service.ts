@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from '../modules/ng2-socket-io';
 import { DataModelService } from './data-model.service';
 // import { AngleData } from '../prototypes';
+import * as data from './righthanddata.json';
 
 @Injectable()
 export class SockService {
@@ -9,6 +10,7 @@ export class SockService {
   constructor( private dataModel: DataModelService) {
 
     newDataHandle('torso');
+    console.log()
 
 
     // need to get the data and iterate through new data handle
