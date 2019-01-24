@@ -4,24 +4,42 @@ import { DataModelService } from './data-model.service';
 // import { AngleData } from '../prototypes';
 import * as data from './righthanddata.json';
 
+
 @Injectable()
 export class SockService {
 
   constructor( private dataModel: DataModelService) {
 
-    newDataHandle('torso');
-    console.log()
 
+   function keys(obj)
+  {
+      var keys = [];
 
-    // need to get the data and iterate through new data handle
+      for(var key in obj)
+      {
+          if(obj.hasOwnProperty(key))
+          {
+              keys.push(key);
+          }
+      }
+      return keys;
+  }
 
+  var keyarray = keys(data); 
 
-    function newDataHandle(msg) {
-   
-      dataModel.status[msg].quaternion.w = 0.02
-      dataModel.status[msg].quaternion.x = 0.01
-      dataModel.status[msg].quaternion.y =0.001
-      dataModel.status[msg].quaternion.z = 0.3
+   for (var i =0 ; i< keyarray.length; i++ ) {
+
+       newDataHandle('rightUpper', data[keyarray[i]]); 
+      
+    }
+
+    function newDataHandle(msg, datainput) {
+      console.log("enter data Handle");
+      console.log(datainput['QuaternionW']);
+      dataModel.status[msg].quaternion.w = datainput['QuaternionW']
+      dataModel.status[msg].quaternion.x = datainput['QuaternionX'] 
+      dataModel.status[msg].quaternion.y = datainput['QuaternionY']
+      dataModel.status[msg].quaternion.z = datainput['QuaternionZ']
 
     }
    }
