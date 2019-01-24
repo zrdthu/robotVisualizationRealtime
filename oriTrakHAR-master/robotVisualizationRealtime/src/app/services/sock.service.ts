@@ -27,6 +27,7 @@ export class SockService {
 
   var keyarray = keys(data); 
 
+
    for (var i =0 ; i< keyarray.length; i++ ) {
 
        newDataHandle('rightUpper', data[keyarray[i]]); 
