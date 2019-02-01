@@ -12,6 +12,7 @@ export class AppComponent {
   axisNames
   constructor(private dataModel: DataModelService, private sock: SockService) {
     this.status = dataModel.status;
+    console.log(this.status);
     this.axisNames = ['north', 'Up', 'East'];
   }
 }

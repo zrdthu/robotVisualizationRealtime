@@ -1,5 +1,7 @@
 import {  Component, OnInit, AfterViewInit, Input, OnChanges } from '@angular/core';
 import * as THREE from 'three';
+//const ANGLE_MAP_R = require('./rightDict_yzx.json');
+//const ANGLE_MAP_L = require('./leftDict_yzx.json');
 declare function require(name:string);
 var OrbitControls = require('three-orbit-controls')(THREE);
 var STLLoader = require('three-stl-loader')(THREE);
@@ -122,8 +124,8 @@ export class StickFigureComponent implements OnInit {
 
 
   animate(angleData) {
-
-    console.log(angleData);
+    console.log("animate")
+    //console.log(angleData);
     // this.vectorQuaternion.x = angleData.quaternion.x;
     // this.vectorQuaternion.w = angleData.quaternion.w;
     // this.vectorQuaternion.y = angleData.quaternion.y;
@@ -135,26 +137,112 @@ export class StickFigureComponent implements OnInit {
     this.updateAxesNames();
     setTimeout(() => {
       this.animate(angleData);
-    } , 20);
+    } , 100);
   }
 
   setQuat(target, val) {
     target.quaternion.w = val.quaternion.w
-    target.quaternion.x = val.quaternion.x
+    target.quaternion.x = val.quaternion.x 
     target.quaternion.y = val.quaternion.y
     target.quaternion.z = val.quaternion.z
   }
 
-  updateVectorVisuals() {
+
+   getQuaternionProduct (q, r) {
+  // ref: https://www.mathworks.com/help/aeroblks/quaternionmultiplication.html
+  return {
+    w: r.w * q.w - r.x * q.x - r.y * q.y - r.z * q.z,
+    x: r.w * q.x + r.x * q.w - r.y * q.z + r.z * q.y,
+    y: r.w * q.y + r.x * q.z + r.y * q.w - r.z * q.x,
+    z: r.w * q.z - r.x * q.y + r.y * q.x + r.z * q.w
+  }
+}
+
+
+getInverseQuaternion (quat) {
+  // ref: https://www.mathworks.com/help/aeroblks/quaternioninverse.html?s_tid=gn_loc_drop
+  const denominator = quat.w * quat.w + quat.x * quat.x + quat.y * quat.y + quat.z * quat.z
+  return {
+    w: quat.w / denominator,
+    x: -quat.x / denominator,
+    y: -quat.y / denominator,
+    z: -quat.z / denominator
+  }
+}
+q12q2 (q1, q2) {
+  return this.getQuaternionProduct(this.getInverseQuaternion(q1), q2)
+}
+
+// torsoCalibrate (quat) {
+//   var offsetTorso = this.getQuaternionProduct(quat, this.torsoZRotate)
+//   //console.log("offset torso");
+// //  console.log(offsetTorso);
+//   var euler = new THREE.Euler().setFromQuaternion(offsetTorso, this.eulerOrder)
+//   euler.x = 0
+//   euler.z = 0
+//   var expectedTorsoQuat = new THREE.Quaternion().setFromEuler(euler)
+//   var newTorsoOffset = this.q12q2(quat, expectedTorsoQuat)
+//   // console.log(`newTorsoOffset ${JSON.stringify(newTorsoOffset, null, 2)}`)
+//   // console.log(`torso: ${JSON.stringify(quat, null, 2)}
+//   // ${JSON.stringify(offsetTorso, null, 2)}
+//   // yaw: ${euler._y * 180 / Math.PI} pitch: ${euler._z * 180 / Math.PI} roll: ${euler._x * 180 / Math.PI}
+//   //   `)
+
+// }
+  torsoZRotate = {
+     w : 1,
+   // w: 0.707,
+    x: 0,
+    y: 0,
+    z: 1
+   //  z: 0.707
+  }
+
+
+ deg2rad (deg) {
+  return deg * Math.PI / 180
+}
+
+ rad2Bucket (rad) {
+  var ans = Math.floor(rad / this.deg2rad(5)) * 5
+  return ans === 180 ? 180 - 5 : ans
+} 
+// updateRightArm(curTorso) {
+
+//     let relativeAngle = this.q12q2(curTorso, this.angleData.rightUpper )
+//     let relativeQuat = new THREE.Quaternion(relativeAngle.x, relativeAngle.y, relativeAngle.z, relativeAngle.w)
+//     console.log("relativeQuat");
+//     let relativeEuler = new THREE.Euler().setFromQuaternion(relativeQuat, 'YZX')
+//     // console.log(rad2Bucket(relativeEuler._y))
+//     console.log("relativeeuler");
+//     console.log(relativeEuler);
+//     let ans = ANGLE_MAP_R[this.rad2Bucket(relativeEuler._y)][this.rad2Bucket(relativeEuler._z)][this.rad2Bucket(relativeEuler._x)]
+//     if (ans.shoulderX !== null) {
+//       let upperArmRelativeEuler = new THREE.Euler(this.deg2rad(ans.shoulderX), this.deg2rad(ans.shoulderY), this.deg2rad(ans.shoulderZ),'YZX')
+//       let upperArmQuat = this.getQuaternionProduct(curTorso, new THREE.Quaternion().setFromEuler(upperArmRelativeEuler))
+//       let quatEuler = new THREE.Euler().setFromQuaternion(this.angleData.rightUpper, 'YZX')
+//       let curTorsoEuler = new THREE.Euler().setFromQuaternion(curTorso, 'YZX')
+//   }
+// } 
+
+
+
+  updateVectorVisuals() { 
+  //  this.angleData.torso = this.torsoCalibrate(this.angleData.torso);
+   //console.log("this. angle data torso"); 
+   console.log(this.angleData);
     this.setQuat(this.lineTorso, this.angleData.torso)
     this.setQuat(this.meshTorso, this.angleData.torso)
     var orig_torsoVector = this.lineTorso.geometry.vertices[4].clone()
     var curTorsoVector = new THREE.Vector3(orig_torsoVector.x, orig_torsoVector.y, orig_torsoVector.z).applyQuaternion(this.lineTorso.quaternion)
     this.meshHead.position.set(curTorsoVector.x, curTorsoVector.y, curTorsoVector.z)
+
     this.setQuat(this.meshHead, this.angleData.head)
 
     var upperRightArmVector = this.lineTorso.geometry.vertices[3].clone()
     var curRightUpperArmVector = new THREE.Vector3(upperRightArmVector.x, upperRightArmVector.y, upperRightArmVector.z).applyQuaternion(this.lineTorso.quaternion)
+    // console.log(upperRightArmVector);
+    // console.log(curRightUpperArmVector);
     this.lineRightUpperArm.position.set(curRightUpperArmVector.x, curRightUpperArmVector.y, curRightUpperArmVector.z)
     this.meshRightUpperArm.position.set(curRightUpperArmVector.x, curRightUpperArmVector.y, curRightUpperArmVector.z)
     this.setQuat(this.lineRightUpperArm, this.angleData.rightUpper)
