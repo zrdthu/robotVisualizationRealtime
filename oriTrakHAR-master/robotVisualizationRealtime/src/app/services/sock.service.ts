@@ -269,13 +269,15 @@ function getInverseQuaternion (quat) {
   var delay = 20 //This is in ms
   var index = 0
   var interval = setInterval(() => {
-  var offset =  q12q2( torsoInitQuat, originAxis); 
-  var rightupper = q12q2(rightUpper, torsoInitQuat); 
+ // var offset =  q12q2( torsoInitQuat, originAxis); 
+  //var rightupper = q12q2(rightUpper, torsoInitQuat); 
 
- // change the data based on the right arm actual data edit and calculations 
-    newDataHandle('torso', offset);
-    newDataHandle('rightUpper', rightupper);
-    newDataHandle('rightLower', rightupper);
+ // change the data based on the right arm actual data edit and calculations  
+
+   // for (var index =0 ; index < keyarray.length)
+    newDataHandle('torso', data[keyarray[index]]);
+  // newDataHandle('rightUpper', rightupper);
+   // newDataHandle('rightLower', rightupper);
     index += 1
     if (index == keyarray.length) {
          clearInterval(interval)
