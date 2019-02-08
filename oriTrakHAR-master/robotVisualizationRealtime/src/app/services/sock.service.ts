@@ -29,19 +29,19 @@ export class SockService {
   var delay = 20 //This is in ms
   var index = 0
   var interval = setInterval(() => {
- 
+
   newDataHandle('torso', data[keyarray[index]]);
     index += 1
     if (index == keyarray.length) {
          clearInterval(interval)
-    }
-  }, delay)
+      }
+    }, delay)
 
-    function newDataHandle(msg, datainput) {
-        dataModel.status[msg].quaternion.w = datainput['w']
-        dataModel.status[msg].quaternion.x = datainput['y'] 
-        dataModel.status[msg].quaternion.y = datainput['z'] 
-        dataModel.status[msg].quaternion.z = datainput['x']
+  function newDataHandle(msg, datainput) {
+    dataModel.status[msg].quaternion.w = datainput['w']
+    dataModel.status[msg].quaternion.x = datainput['y'] 
+    dataModel.status[msg].quaternion.y = datainput['z'] 
+    dataModel.status[msg].quaternion.z = datainput['x']
     }
    }
 }
