@@ -3,8 +3,8 @@ import { Socket } from '../modules/ng2-socket-io';
 import { DataModelService } from './data-model.service';
 //const THREE = require('three.js-node')
 // import { AngleData } from '../prototypes';
-import * as data from './righthandperpendicular.json';
-
+//import * as data from './righthandperpendicular.json';
+import * as data from './torsorotate.json';
 
 
 @Injectable()
@@ -48,27 +48,27 @@ export class SockService {
 //right down 
 
 
-// const originAxis = {
-//   w: 0.676,
-//   x: -0.0742,
-//   y: -0.6868,
-//   z: -0.2564
-// }
+const originAxis = {
+  w: 0.676,
+  x: -0.0742,
+  y: -0.6868,
+  z: -0.2564
+}
 
 
-// const torsoInitQuat = {
-//   w: 0.676,
-//   x: -0.0742,
-//   y: -0.6868,
-//   z: -0.2564
-// }
+const torsoInitQuat = {
+  w: 0.676,
+  x: -0.0742,
+  y: -0.6868,
+  z: -0.2564
+}
 
-// const headInitQuat = {
-//   w: 0.676,
-//   x: -0.0742,
-//   y: -0.6868,
-//   z: -0.2564
-// }
+const headInitQuat = {
+  w: 0.676,
+  x: -0.0742,
+  y: -0.6868,
+  z: -0.2564
+}
 
 
 // //right torso move in a movement 
@@ -97,26 +97,71 @@ export class SockService {
 
  
 //right perpendicular 
-const originAxis = {
-  w: 0.7047,
-  x: 0.0067,
-  y: -0.6639,
-  z: -0.2501
-}
+// const originAxis = {
+//   w: 0.7047,
+//   x: 0.0067,
+//   y: -0.6639,
+//   z: -0.2501
+// }
 
-const torsoInitQuat = {
-  w: 0.7047,
-  x: 0.0067,
-  y: -0.6639,
-  z: -0.2501
-}
+// const torsoInitQuat = {
+//   w: 0.7047,
+//   x: 0.0067,
+//   y: -0.6639,
+//   z: -0.2501
+// }
 
-const headInitQuat = {
-  w: 0.7724609375,
-  x: -0.03839111328125,
-  y: -0.1016845703125,
-  z: 0.62567138671875
-}
+// const headInitQuat = {
+//   w: 0.7724609375,
+//   x: -0.03839111328125,
+//   y: -0.1016845703125,
+//   z: 0.62567138671875
+// }
+
+
+//tryone torso  channel 1 and 3. location and understanding the orientation of the problem 
+
+
+// const originAxis = {
+//   w: 0.9556, 
+//   x: -0.1114, 
+//   y: -0.1839, 
+//   z: -0.2014
+// }
+// const torsoInitQuat = {
+//   w: 0.9556, 
+//   x: -0.1114, 
+//   y: -0.1839, 
+//   z: -0.2014
+// }
+// const headInitQuat = {
+//   w: 0.9556, 
+//   x: -0.1114, 
+//   y: -0.1839, 
+//   z: -0.2014
+// } 
+
+
+// channel 2 and 4 and understanding the orientaiton of the problem at this point
+// const originAxis = {
+//   w: 0.2744, 
+//   x: 0.5768, 
+//   y: -0.0439, 
+//   z: 0.7682
+// }
+// const torsoInitQuat = {
+//   w: 0.2744, 
+//   x: 0.5768, 
+//   y: -0.0439, 
+//   z: 0.7682
+// }
+// const headInitQuat = {
+//   w: 0.2744, 
+//   x: 0.5768, 
+//   y: -0.0439, 
+//   z: 0.7682
+// } 
+
 var torsoOffset = q12q2(torsoInitQuat, originAxis)
 var headOffset = q12q2(headInitQuat, originAxis)
 
@@ -133,6 +178,25 @@ var headOffset = q12q2(headInitQuat, originAxis)
 //   // yaw: ${euler._y * 180 / Math.PI} pitch: ${euler._z * 180 / Math.PI} roll: ${euler._x * 180 / Math.PI}
 //   //   `)
 // }
+
+
+// channel 1. arm 
+// const rightUpper = {
+//   w: 0.9408, 
+//   x: -0.0798, 
+//   y: 0.2366, 
+//   z: 0.2292
+// }
+ 
+
+//channel 2 and 4 arm 
+
+const rightUpper = {
+  w: 0.9408, 
+  x: -0.0798, 
+  y: 0.2366, 
+  z: 0.2292
+}
 
 
 // torso move 
@@ -154,12 +218,12 @@ var headOffset = q12q2(headInitQuat, originAxis)
 // }
 
 //right perpendicular 
-const rightUpper = {
-  w: 0.478,
-  x: 0.0232,
-  y: 0.0533,
-  z: -0.8763
-}
+// const rightUpper = {
+//   w: 0.478,
+//   x: 0.0232,
+//   y: 0.0533,
+//   z: -0.8763
+// }
 
 // const rightUpper = {
 //   w:0.6705 , 
@@ -175,7 +239,7 @@ const torsoZRotate = {
   z: 0.707
 }
 
-  function getQuaternionProduct (q, r) {
+  function getQuaternionProduct (r, q) {
     // ref: https://www.mathworks.com/help/aeroblks/quaternionmultiplication.html
     return {
       w: r.w * q.w - r.x * q.x - r.y * q.y - r.z * q.z,
@@ -186,7 +250,7 @@ const torsoZRotate = {
   }
 
 function q12q2 (q1, q2) {
-  return getQuaternionProduct(getInverseQuaternion(q1), q2)
+  return getQuaternionProduct( q1, getInverseQuaternion(q2))
 }
 
 
@@ -206,7 +270,7 @@ function getInverseQuaternion (quat) {
   var index = 0
   var interval = setInterval(() => {
   var offset =  q12q2( torsoInitQuat, originAxis); 
-  var rightupper = q12q2(rightUpper, offset) 
+  var rightupper = q12q2(rightUpper, torsoInitQuat); 
 
  // change the data based on the right arm actual data edit and calculations 
     newDataHandle('torso', offset);
@@ -231,9 +295,9 @@ function getInverseQuaternion (quat) {
       //console.log(datainput['QuaternionW']);
  
         dataModel.status[msg].quaternion.w = datainput['w']
-        dataModel.status[msg].quaternion.x = datainput['x'] 
-        dataModel.status[msg].quaternion.y = datainput['y'] 
-        dataModel.status[msg].quaternion.z = datainput['z']
+        dataModel.status[msg].quaternion.x = datainput['y'] 
+        dataModel.status[msg].quaternion.y = datainput['z'] 
+        dataModel.status[msg].quaternion.z = datainput['x']
       
       // else {
       //   dataModel.status[msg].quaternion.w = datainput['QuaternionW']
