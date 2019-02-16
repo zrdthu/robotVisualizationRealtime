@@ -4,7 +4,7 @@ import { DataModelService } from './data-model.service';
 //const THREE = require('three.js-node')
 // import { AngleData } from '../prototypes';
 //import * as data from './righthandperpendicular.json';
-import * as data from './torsorotate.json';
+import * as data from './quaternionrotatefine.json';
 
 
 @Injectable()
@@ -68,16 +68,20 @@ export class SockService {
 // another code that will handle relative I'm gonna try both situations to see whether it would work or not. 
  //realative torso for the calculations 
   newDataHandle('torso', data[keyarray[index]]);
+  // add both the torso and arm data at this particular point in time 
+  // basic artm rotation successful at this particular time in point 
+  //
     index += 1
     if (index == keyarray.length) {
          clearInterval(interval)
       }
     }, delay)
 
+// two axies that work is x z y and y z x 
   function newDataHandle(msg, datainput) {
     dataModel.status[msg].quaternion.w = datainput['w']
-    dataModel.status[msg].quaternion.x = datainput['z'] 
-    dataModel.status[msg].quaternion.y = datainput['y'] 
+    dataModel.status[msg].quaternion.x = datainput['y'] 
+    dataModel.status[msg].quaternion.y = datainput['z'] 
     dataModel.status[msg].quaternion.z = datainput['x']
     }
    }
