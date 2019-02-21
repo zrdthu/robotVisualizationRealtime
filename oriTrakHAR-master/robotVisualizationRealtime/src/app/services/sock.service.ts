@@ -4,9 +4,9 @@ import { DataModelService } from './data-model.service';
 //const THREE = require('three.js-node')
 // import { AngleData } from '../prototypes';
 //import * as data from './righthandperpendicular.json';
-
 import * as rightdata from './armtorso2192019arm2.json';
 import * as data from './armtorso21920194.json';
+
 
 
 @Injectable()
@@ -64,13 +64,7 @@ export class SockService {
   var delay = 30 //This is in ms
   var index = 0
   var interval = setInterval(() => {
-    // calculating the relative orientation  
-    // there are different kinds of ideas 
 
-// another code that will handle relative I'm gonna try both situations to see whether it would work or not. 
- //realative torso for the calculations 
- //console.log("right key array");
- //console.log(rightkeyarray); 
  console.log(rightdata[rightkeyarray[index]]);
  console.log("right data "); 
  console.log(data[keyarray[index]]); 
@@ -80,9 +74,7 @@ export class SockService {
    newDataHandle('leftLower', rightdata[rightkeyarray[index]]);
    newDataHandle('head', data[keyarray[index]]);
    newDataHandle('torso', data[keyarray[index]]);
-  // add both the torso and arm data at this particular point in time 
-  // basic artm rotation successful at this particular time in point 
-  //
+
     index += 1
     if (index == keyarray.length) {
          clearInterval(interval)
@@ -90,10 +82,11 @@ export class SockService {
     }, delay)
 
 // two axies that work is x z y (torso 4 and arm 1 seems tobe the best ) and y z x 
+
   function newDataHandle(msg, datainput) {
     dataModel.status[msg].quaternion.w = datainput['w']
-    dataModel.status[msg].quaternion.x = datainput['z'] 
-    dataModel.status[msg].quaternion.y = datainput['y'] 
+    dataModel.status[msg].quaternion.x = datainput['y'] 
+    dataModel.status[msg].quaternion.y = datainput['z'] 
     dataModel.status[msg].quaternion.z = datainput['x']
     }
    }
