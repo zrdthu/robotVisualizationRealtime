@@ -4,7 +4,9 @@ import { DataModelService } from './data-model.service';
 //const THREE = require('three.js-node')
 // import { AngleData } from '../prototypes';
 //import * as data from './righthandperpendicular.json';
-import * as data from './quaternionrotatefine.json';
+
+import * as rightdata from './armtorso2192019arm2.json';
+import * as data from './armtorso21920194.json';
 
 
 @Injectable()
@@ -56,10 +58,10 @@ export class SockService {
 
   // calculate from the torso at this point 
 
-
-
+  // var right key data 
+  var rightkeyarray = keys(rightdata);
   var keyarray = keys(data); 
-  var delay = 20 //This is in ms
+  var delay = 30 //This is in ms
   var index = 0
   var interval = setInterval(() => {
     // calculating the relative orientation  
@@ -67,7 +69,17 @@ export class SockService {
 
 // another code that will handle relative I'm gonna try both situations to see whether it would work or not. 
  //realative torso for the calculations 
-  newDataHandle('torso', data[keyarray[index]]);
+ //console.log("right key array");
+ //console.log(rightkeyarray); 
+ console.log(rightdata[rightkeyarray[index]]);
+ console.log("right data "); 
+ console.log(data[keyarray[index]]); 
+   newDataHandle('rightUpper', rightdata[rightkeyarray[index]]);
+   newDataHandle('rightLower', rightdata[rightkeyarray[index]]);
+   newDataHandle('leftUpper', rightdata[rightkeyarray[index]]);
+   newDataHandle('leftLower', rightdata[rightkeyarray[index]]);
+   newDataHandle('head', data[keyarray[index]]);
+   newDataHandle('torso', data[keyarray[index]]);
   // add both the torso and arm data at this particular point in time 
   // basic artm rotation successful at this particular time in point 
   //
@@ -77,12 +89,12 @@ export class SockService {
       }
     }, delay)
 
-// two axies that work is x z y and y z x 
+// two axies that work is x z y (torso 4 and arm 1 seems tobe the best ) and y z x 
   function newDataHandle(msg, datainput) {
     dataModel.status[msg].quaternion.w = datainput['w']
-    dataModel.status[msg].quaternion.x = datainput['x'] 
+    dataModel.status[msg].quaternion.x = datainput['z'] 
     dataModel.status[msg].quaternion.y = datainput['y'] 
-    dataModel.status[msg].quaternion.z = datainput['z']
+    dataModel.status[msg].quaternion.z = datainput['x']
     }
    }
 }
