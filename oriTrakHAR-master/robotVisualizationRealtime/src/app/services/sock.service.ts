@@ -4,8 +4,9 @@ import { DataModelService } from './data-model.service';
 //const THREE = require('three.js-node')
 // import { AngleData } from '../prototypes';
 //import * as data from './righthandperpendicular.json';
-import * as rightdata from './armtorso2192019arm2.json';
-import * as data from './armtorso21920194.json';
+import * as rightdata from './lowerarm.json';
+import * as data from './torso.json'; 
+import * as elbow from './newelbow.json';
 
 
 
@@ -59,6 +60,7 @@ export class SockService {
   // calculate from the torso at this point 
 
   // var right key data 
+  var elbowkeyarray = keys(elbow); 
   var rightkeyarray = keys(rightdata);
   var keyarray = keys(data); 
   var delay = 30 //This is in ms
@@ -68,10 +70,10 @@ export class SockService {
  console.log(rightdata[rightkeyarray[index]]);
  console.log("right data "); 
  console.log(data[keyarray[index]]); 
-   newDataHandle('rightUpper', rightdata[rightkeyarray[index]]);
+   newDataHandle('rightUpper', elbow[elbowkeyarray[index]]);
    newDataHandle('rightLower', rightdata[rightkeyarray[index]]);
-   newDataHandle('leftUpper', rightdata[rightkeyarray[index]]);
-   newDataHandle('leftLower', rightdata[rightkeyarray[index]]);
+  // newDataHandle('leftUpper', rightdata[rightkeyarray[index]]);
+   //newDataHandle('leftLower', rightdata[rightkeyarray[index]]);
    newDataHandle('head', data[keyarray[index]]);
    newDataHandle('torso', data[keyarray[index]]);
 
@@ -85,9 +87,9 @@ export class SockService {
 
   function newDataHandle(msg, datainput) {
     dataModel.status[msg].quaternion.w = datainput['w']
-    dataModel.status[msg].quaternion.x = datainput['y'] 
+    dataModel.status[msg].quaternion.x = datainput['x'] 
     dataModel.status[msg].quaternion.y = datainput['z'] 
-    dataModel.status[msg].quaternion.z = datainput['x']
+    dataModel.status[msg].quaternion.z = datainput['y']
     }
    }
 }
