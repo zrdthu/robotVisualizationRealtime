@@ -4,9 +4,9 @@ import { DataModelService } from './data-model.service';
 //const THREE = require('three.js-node')
 // import { AngleData } from '../prototypes';
 //import * as data from './righthandperpendicular.json';
-import * as rightdata from './lowerarm.json';
-import * as data from './torso.json'; 
-import * as elbow from './newelbow.json';
+import * as rightdata from './lowerarmstill0222.json';
+import * as data from './torsostill0222.json'; 
+import * as elbow from './newelbowstill20190222012.json';
 
 
 
@@ -63,14 +63,16 @@ export class SockService {
   var elbowkeyarray = keys(elbow); 
   var rightkeyarray = keys(rightdata);
   var keyarray = keys(data); 
-  var delay = 30 //This is in ms
+  var delay = 100 //This is in ms
   var index = 0
   var interval = setInterval(() => {
 
  console.log(rightdata[rightkeyarray[index]]);
  console.log("right data "); 
  console.log(data[keyarray[index]]); 
-   newDataHandle('rightUpper', elbow[elbowkeyarray[index]]);
+ console.log(elbow[elbowkeyarray[index]]); 
+  // newDataHandle('rightUpper', elbow[elbowkeyarray[index]]);
+  //newDataHandle('rightUpper', elbow[elbowkeyarray[index]]);
    newDataHandle('rightLower', rightdata[rightkeyarray[index]]);
   // newDataHandle('leftUpper', rightdata[rightkeyarray[index]]);
    //newDataHandle('leftLower', rightdata[rightkeyarray[index]]);
