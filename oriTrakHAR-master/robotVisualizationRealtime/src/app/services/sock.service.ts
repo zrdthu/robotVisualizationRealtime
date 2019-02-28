@@ -4,10 +4,10 @@ import { DataModelService } from './data-model.service';
 //const THREE = require('three.js-node')
 // import { AngleData } from '../prototypes';
 //import * as data from './righthandperpendicular.json';
-import * as rightdata from './lowerarmstill0222.json';
-import * as data from './torsostill0222.json'; 
-import * as elbow from './newelbowstill20190222012.json';
-
+import * as rightdata from './rightarm227botharms.json';
+import * as data from './torsomoving227botharms.json'; 
+import * as leftdata from './leftarm227botharms.json';
+//import * as elbow from './224elbowthird.json';
 
 
 @Injectable()
@@ -60,7 +60,8 @@ export class SockService {
   // calculate from the torso at this point 
 
   // var right key data 
-  var elbowkeyarray = keys(elbow); 
+  //var elbowkeyarray = keys(elbow); 
+  var leftkeyarray = keys(leftdata);
   var rightkeyarray = keys(rightdata);
   var keyarray = keys(data); 
   var delay = 100 //This is in ms
@@ -70,10 +71,12 @@ export class SockService {
  console.log(rightdata[rightkeyarray[index]]);
  console.log("right data "); 
  console.log(data[keyarray[index]]); 
- console.log(elbow[elbowkeyarray[index]]); 
+ //console.log(elbow[elbowkeyarray[index]]); 
   // newDataHandle('rightUpper', elbow[elbowkeyarray[index]]);
-  //newDataHandle('rightUpper', elbow[elbowkeyarray[index]]);
+  newDataHandle('rightUpper', rightdata[rightkeyarray[index]]);
    newDataHandle('rightLower', rightdata[rightkeyarray[index]]);
+   newDataHandle('leftUpper', leftdata[leftkeyarray[index]]); 
+   newDataHandle('leftLower', leftdata[leftkeyarray[index]]);
   // newDataHandle('leftUpper', rightdata[rightkeyarray[index]]);
    //newDataHandle('leftLower', rightdata[rightkeyarray[index]]);
    newDataHandle('head', data[keyarray[index]]);
@@ -87,11 +90,13 @@ export class SockService {
 
 // two axies that work is x z y (torso 4 and arm 1 seems tobe the best ) and y z x 
 
+// basic coordinations to fit the arm and bbody at this part for visualziations 
+// x  z y  // arm is in the opposite positioning
   function newDataHandle(msg, datainput) {
     dataModel.status[msg].quaternion.w = datainput['w']
     dataModel.status[msg].quaternion.x = datainput['x'] 
     dataModel.status[msg].quaternion.y = datainput['z'] 
-    dataModel.status[msg].quaternion.z = datainput['y']
+    dataModel.status[msg].quaternion.z = -datainput['y']
     }
    }
 }
