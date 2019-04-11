@@ -7,7 +7,7 @@ import { DataModelService } from './data-model.service';
 import * as rightdata from './rightarm227botharms.json';
 import * as data from './torsomoving227botharms.json'; 
 import * as leftdata from './leftarm227botharms.json';
-//import * as elbow from './227elbowbotharms201minus.json'; 
+import * as elbow from './227elbowbotharms201minus.json'; 
 //import * as elbow from './224elbowthirFmad.json';
 
 
@@ -61,7 +61,7 @@ export class SockService {
   // calculate from the torso at this point 
 
   // var right key data 
-  //var elbowkeyarray = keys(elbow); 
+  var elbowkeyarray = keys(elbow); 
   var leftkeyarray = keys(leftdata);
   var rightkeyarray = keys(rightdata);
   var keyarray = keys(data); 
@@ -73,13 +73,13 @@ export class SockService {
  // console.log("right data "); 
  // console.log(data[keyarray[index]]); 
  //console.log(elbow[elbowkeyarray[index]]); 
-  // newDataHandle('rightUpper', elbow[elbowkeyarray[index]]);
+  newDataHandle('rightUpper', elbow[elbowkeyarray[index]]);
   //newDataHandle('rightUpper', rightdata[rightkeyarray[index]]);
    newDataHandle('rightLower', rightdata[rightkeyarray[index]]);
    newDataHandle('leftUpper', leftdata[leftkeyarray[index]]); 
    newDataHandle('leftLower', leftdata[leftkeyarray[index]]);
-   newDataHandle('rightUpper', rightdata[rightkeyarray[index]]);
-   newDataHandle('rightLower', rightdata[rightkeyarray[index]]);
+   // newDataHandle('rightUpper', rightdata[rightkeyarray[index]]);
+   // newDataHandle('rightLower', rightdata[rightkeyarray[index]]);
    newDataHandle('head', data[keyarray[index]]);
    newDataHandle('torso', data[keyarray[index]]);
 
