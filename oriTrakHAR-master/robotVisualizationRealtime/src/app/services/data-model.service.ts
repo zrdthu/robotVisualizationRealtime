@@ -26,13 +26,14 @@ export class DataModelService {
     },
     rightLower: {
       quaternion: {w: 1, x: 0, y: 0, z: 0}
-   // quaternion: {w: 0.6705, x: 0.0887, y: 0.1082, z: -0.7286}
+  //  quaternion: {w: 0.6705, x: 0.0887, y: 0.1082, z: -0.7286}
     },
     leftUpper: {
       quaternion: {w: 1, x: 0, y: 0, z: 0}
     },
     leftLower: {
       quaternion: {w: 1, x: 0, y: 0, z: 0}
+      // quaternion: {w: -0.5, x: 0.5, y: -0.5, z: 0.5}
     }
   };
 
