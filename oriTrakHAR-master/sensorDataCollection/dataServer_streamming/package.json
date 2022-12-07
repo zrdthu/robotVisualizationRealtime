@@ -11,7 +11,7 @@
   "dependencies": {
     "better-sqlite3": "^4.1.0",
     "bluebird": "^3.5.1",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "socket.io": "^2.0.4",
     "sqlite": "^2.9.1",
     "three.js-node": "^0.72.1"
